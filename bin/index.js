@@ -14,11 +14,10 @@ const options = yargs
 
 const greeting = `Hello, ${options.name}!`;
 
-console.log(greeting);
 
 
 
-// const greeting = chalk.white.bold('Welcome to Codewars-organiser!')
+const chalked = chalk.white.bold(greeting)
 
 const boxenOptions = {
   padding: 1,
@@ -27,5 +26,6 @@ const boxenOptions = {
   borderColor: "green",
   backgroundColor: "#555555"
 };
-const msgBox = boxen( greeting, boxenOptions );
+const msgBox = boxen( chalked, boxenOptions );
 
+console.log(msgBox);
