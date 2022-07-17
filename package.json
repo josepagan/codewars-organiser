@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/josepagan/codewars-organiser#readme",
   "bin": {
-   "codewars": "./bin/index.js"
- }
+    "codewars": "./bin/index.js"
+  },
+  "dependencies": {
+    "boxen": "4.0",
+    "chalk": "2.4",
+    "yargs": "^17.5.1"
+  }
 }
