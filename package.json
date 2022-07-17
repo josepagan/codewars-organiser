@@ -1,0 +1,22 @@
+{
+  "name": "codewars-organiser",
+  "version": "0.0.1",
+  "description": "simple helper app that organises your files and folders",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josepagan/codewars-organiser.git"
+  },
+  "author": "Jose Pagan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josepagan/codewars-organiser/issues"
+  },
+  "homepage": "https://github.com/josepagan/codewars-organiser#readme",
+  "bin": {
+   "codewars": "./bin/index.js"
+ }
+}
