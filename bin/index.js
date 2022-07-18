@@ -6,6 +6,11 @@ const chalk = require('chalk')
 const boxen = require('boxen')
 const yargs = require('yargs')
 const { hideBin } = require('yargs/helpers')
+const util = require('util');
+const fs = require('fs')
+
+
+const exec = util.promisify(require('child_process').exec);
 
 
 yargs().parse(["http://omg.wtf.bbq",1,3,4])
@@ -26,9 +31,7 @@ console.log(msgBox);
 const format = (msg) => boxen(chalk.white.bold(msg), boxenOptions) 
 const output = msg => console.log(format(msg))
 
-format("probando que es gerundio")
-console.log(format("probando"))
-output('probando output')
+// output('probando output')
 
 const argv = yargs(hideBin(process.argv)).argv
 const defaultArg = argv._.toString()
@@ -39,6 +42,36 @@ if (defaultArg.match(regex)) output('cool')
 else output('not cool')
 
 
+async function ls() {
+  const { stdout, stderr } = await exec('ls');
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
+}
+
+//TODO create a function that checks if there is a git with codewars-katas at all if not then 
+//ask user to create it
+
+
+
+async function getTopLevelGit() {
+  const { stdout, stderr } = await exec('git rev-parse --show-toplevel');
+  console.log('top level git path:')
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
+}
+async function getTopLevelGitName() {
+  const { stdout, stderr } = await exec('basename `git rev-parse --show-toplevel`');
+  return stdout 
+  // console.log('top level git name:')
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
+}
+getTopLevelGit()
+if (getTopLevelGitName().toString() !== 'codewars-katas') output('cant find codewars-katas git project')
+
+
+console.log('current working directory:', process.cwd())
+console.log('is this constantly  updating?')
 
 //TODO get the name of the repository and check if it matches some standard
 //like codewars-katas or just codewars
@@ -48,6 +81,7 @@ else output('not cool')
 //
 // basename `git rev-parse --show-toplevel` will show you the top level git
 //
+//to movo to the top level.... cd $(git rev-parse --show-toplevel)
 //
 // if that output is the same as the current folder... do something... like
 // check for folders in the root directory
