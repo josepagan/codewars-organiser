@@ -51,13 +51,30 @@ async function ls() {
 //TODO create a function that checks if there is a git with codewars-katas at all if not then 
 //ask user to create it
 
+async function checkGit() {
+  try {
+  const { stdout, stderr } = await exec('git status');
+    return true
+  }
+  catch {
+    console.log('it looks like you are not in a git repository')
 
+  }
+  // console.log('checkGit:')
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
+
+}
 
 async function getTopLevelGit() {
+  try {
   const { stdout, stderr } = await exec('git rev-parse --show-toplevel');
-  console.log('top level git path:')
-  console.log('stdout:', stdout);
-  console.log('stderr:', stderr);
+    return stdout
+  }
+  catch {
+   console.log("there is not a git repository") 
+  }
+    
 }
 async function getTopLevelGitName() {
   const { stdout, stderr } = await exec('basename `git rev-parse --show-toplevel`');
@@ -66,12 +83,28 @@ async function getTopLevelGitName() {
   // console.log('stdout:', stdout);
   // console.log('stderr:', stderr);
 }
-getTopLevelGit()
-if (getTopLevelGitName().toString() !== 'codewars-katas') output('cant find codewars-katas git project')
+// if (getTopLevelGitName().toString() !== 'codewars-katas') output('cant find codewars-katas git project')
+const main = async () => {
+  const topLevelGit = await getTopLevelGit()
+  console.log('typeof top level git:'typeof(topLevelGit))
+  // console.log("toplevelgit: ",topLevelGit,  "process.cwd",process.cwd() )
 
 
-console.log('current working directory:', process.cwd())
-console.log('is this constantly  updating?')
+}
+main()
+//TODO
+//TODO
+//TODO
+//TODO
+//TODO
+//TODO
+//TODO
+//TODO
+// Obviously the git idea to get the repository was crap.
+// I think it is better just to work with filenames so instead of execing git
+// just fs my way all the way up to whatever is needed
+
+// console.log('current working directory:', process.cwd())
 
 //TODO get the name of the repository and check if it matches some standard
 //like codewars-katas or just codewars
